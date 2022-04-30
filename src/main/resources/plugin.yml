@@ -1,0 +1,6 @@
+name: SimpleDiscordBridge
+version: '${project.version}'
+main: com.ruserious99.simplediscordbridge.SimpleDiscordBridge
+api-version: 1.18
+authors: [ RuSerious99 ]
+description: discord bridge
