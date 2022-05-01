@@ -1,7 +1,9 @@
 package com.ruserious99.simplediscordbridge;
 
+import commands.GiveRole;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,12 +13,15 @@ public final class SimpleDiscordBridge extends JavaPlugin {
 
     private JDA jda;
 
-    //OTY3OTczNzkyNzY2ODkwMDk0.YmYF2A.06kjTbpw-7NJSQnxB36bLTAVG18
     @Override
     public void onEnable() {
 
-        JDABuilder builder =  JDABuilder.createDefault("OTY3OTczNzkyNzY2ODkwMDk0.YmYF2A.06kjTbpw-7NJSQnxB36bLTAVG18");
-        builder.setActivity(Activity.watching("Mystic server"));
+        registerCommands();
+
+        JDABuilder builder = JDABuilder.createDefault("OTY3OTczNzkyNzY2ODkwMDk0.YmYF2A.kcmUkt446DlqbBMpEM1pxAC1onM");
+        builder.setActivity(Activity.watching("You"));
+        builder.setStatus(OnlineStatus.IDLE);
+        builder.addEventListeners(new DiscordListener());
         try {
             jda = builder.build();
             System.out.println("Success");
@@ -25,8 +30,11 @@ public final class SimpleDiscordBridge extends JavaPlugin {
         }
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+    private void registerCommands() {
+        getCommand("give_role").setExecutor(new GiveRole(this));
+    }
+
+    public JDA getJda() {
+        return jda;
     }
 }
