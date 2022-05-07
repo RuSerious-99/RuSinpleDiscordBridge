@@ -5,4 +5,5 @@ api-version: 1.18
 authors: [ RuSerious99 ]
 description: discord bridge
 commands:
-  give_role:
+  giverole:
+  removerole:
