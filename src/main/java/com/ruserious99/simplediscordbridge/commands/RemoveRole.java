@@ -1,6 +1,6 @@
 package com.ruserious99.simplediscordbridge.commands;
 
-import com.ruserious99.simplediscordbridge.Roles;
+import com.ruserious99.simplediscordbridge.util.Const;
 import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -23,7 +23,7 @@ public class RemoveRole implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
-            Guild guild = simpleDiscordBridge.getJda().getGuildById("969822792520454204");
+            Guild guild = simpleDiscordBridge.getJda().getGuildById(Const.GUILD_ID);
             if (guild != null) {
                 try {
                     String member = getMember(args, guild);
@@ -31,7 +31,7 @@ public class RemoveRole implements CommandExecutor {
                     if(member != null) {
                         if (role != null) {
                             guild.removeRoleFromMember(member, guild.getRoleById(role)).queue();
-                            guild.getTextChannelById("969822792520454207").sendMessage(args[1] + " role was removed from " + args[0]).queue();
+                            guild.getTextChannelById(Const.GENERAL_TEXT_CHANNEL).sendMessage(args[1] + " role was removed from " + args[0]).queue();
                             return true;
                         }
                     }
@@ -50,17 +50,17 @@ public class RemoveRole implements CommandExecutor {
                 return m.getUser().getId();
             }
         }
-        guild.getTextChannelById("969822792520454207").sendMessage(args[0] + " was not found ").queue();
+        guild.getTextChannelById(Const.GENERAL_TEXT_CHANNEL).sendMessage(args[0] + " was not found ").queue();
         return null;
     }
 
     private String getrole(@NotNull String[] args) {
-        if (args[1].equalsIgnoreCase(Roles.ADMIN)) {
-            return "970434650470248468";
-        }else if(args[1].equalsIgnoreCase(Roles.MEMBER)){
-            return "970534044364337152";
-        }else if(args[1].equalsIgnoreCase(Roles.HELPER)){
-            return "970534594384388126";
+        if (args[1].equalsIgnoreCase(Const.ADMIN)) {
+            return Const.ADMIN_ID;
+        }else if(args[1].equalsIgnoreCase(Const.MEMBER)){
+            return Const.MEMBER_ID;
+        }else if(args[1].equalsIgnoreCase(Const.HELPER)){
+            return Const.HELPER_ID;
         }
         return null;
     }
