@@ -1,4 +1,4 @@
-package com.ruserious99.simplediscordbridge.discord_only_commands;
+package com.ruserious99.simplediscordbridge.listeners;
 
 import com.ruserious99.simplediscordbridge.util.Const;
 import net.dv8tion.jda.api.EmbedBuilder;

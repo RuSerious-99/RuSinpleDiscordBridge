@@ -25,8 +25,8 @@ public class GiveRole implements CommandExecutor {
             Guild guild = simpleDiscordBridge.getJda().getGuildById(Const.GUILD_ID);
             if (guild != null) {
                 String member = MembersHelp.getMember(args, guild);
-                String role   = RolesHelp.getrole(args);
-                if(member != null) {
+                String role = RolesHelp.getrole(args);
+                if (member != null) {
                     if (role != null) {
                         guild.addRoleToMember(member, guild.getRoleById(role)).queue();
                         guild.getTextChannelById(Const.GENERAL_TEXT_CHANNEL).sendMessage(args[1] + " role was given to " + args[0]).queue();

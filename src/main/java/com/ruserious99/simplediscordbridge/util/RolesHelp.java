@@ -1,5 +1,10 @@
 package com.ruserious99.simplediscordbridge.util;
 
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import java.util.List;
+
 public class RolesHelp {
 
     public static String getrole(String[] args) {
@@ -12,5 +17,21 @@ public class RolesHelp {
         }
         return null;
     }
+
+
+    public static boolean hasRole(Guild guild, Member member, String roleCheck) {
+
+        Role role = guild.getRoleById(roleCheck);
+        List<Member> members = guild.getMembersWithRoles(role);
+
+        for (Member m : members) {
+            if (m.getUser().getName().equals(member.getUser().getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
+
 

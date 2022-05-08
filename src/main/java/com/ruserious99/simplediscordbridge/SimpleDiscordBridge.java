@@ -1,11 +1,10 @@
 package com.ruserious99.simplediscordbridge;
 
-import com.ruserious99.simplediscordbridge.commands.DiscordListener;
+import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
 import com.ruserious99.simplediscordbridge.commands.GiveRole;
 import com.ruserious99.simplediscordbridge.commands.RemoveRole;
 import com.ruserious99.simplediscordbridge.discord_only_commands.CommandManager;
-import com.ruserious99.simplediscordbridge.discord_only_commands.Welcome;
-import com.ruserious99.simplediscordbridge.discord_only_commands.commands.JustHello;
+import com.ruserious99.simplediscordbridge.listeners.Welcome;
 import com.ruserious99.simplediscordbridge.util.Const;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
