@@ -1,5 +1,6 @@
 package com.ruserious99.simplediscordbridge.discord_only_commands;
 
+import com.ruserious99.simplediscordbridge.discord_only_commands.commands.ClearCommand;
 import com.ruserious99.simplediscordbridge.discord_only_commands.commands.HelpCommand;
 import com.ruserious99.simplediscordbridge.discord_only_commands.commands.JustHello;
 import net.dv8tion.jda.api.entities.Guild;
@@ -13,11 +14,13 @@ public class CommandManager extends ListenerAdapter {
 
     private final HelpCommand helpCommand;
     private final JustHello justHello;
+    private final ClearCommand clearCommand;
 
 
     public CommandManager() {
         this.justHello = new JustHello();
         this.helpCommand = new HelpCommand();
+        this.clearCommand = new ClearCommand();
     }
 
     @Override
@@ -40,7 +43,7 @@ public class CommandManager extends ListenerAdapter {
                     this.justHello.executeCommand(args, guild, member, textChannel, message);
                     break;
                 case "!clear":
-                    //this.clear.executeCommand(args, guild, member, textChannel, message);
+                    this.clearCommand.executeCommand(args, guild, member, textChannel, message);
                     break;
             }
         }

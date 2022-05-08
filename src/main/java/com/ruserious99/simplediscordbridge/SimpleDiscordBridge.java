@@ -29,7 +29,6 @@ public final class SimpleDiscordBridge extends JavaPlugin {
         builder.setStatus(OnlineStatus.IDLE);
         builder.addEventListeners(new DiscordListener());
         builder.addEventListeners(new Welcome());
-
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         builder.enableIntents(GatewayIntent.GUILD_MESSAGES);
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
