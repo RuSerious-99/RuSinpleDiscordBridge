@@ -1,11 +1,12 @@
 package com.ruserious99.simplediscordbridge;
 
+import com.ruserious99.simplediscordbridge.config.ConfigFile;
+import com.ruserious99.simplediscordbridge.config.ConfigValues;
 import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
 import com.ruserious99.simplediscordbridge.commands.GiveRole;
 import com.ruserious99.simplediscordbridge.commands.RemoveRole;
 import com.ruserious99.simplediscordbridge.discord_only_commands.CommandManager;
 import com.ruserious99.simplediscordbridge.listeners.Welcome;
-import com.ruserious99.simplediscordbridge.util.Const;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -23,7 +24,10 @@ public final class SimpleDiscordBridge extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        JDABuilder builder = JDABuilder.create(Const.TOKEN, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES);
+        ConfigFile.loadConfig();
+        //ConfigValues.loadKeyValues();
+
+        JDABuilder builder = JDABuilder.create(ConfigValues.TOKEN, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES);
         builder.setActivity(Activity.watching("You"));
         builder.setStatus(OnlineStatus.IDLE);
         builder.addEventListeners(new DiscordListener());

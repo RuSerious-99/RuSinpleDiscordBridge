@@ -3,7 +3,6 @@ package com.ruserious99.simplediscordbridge.util;
 public class Const {
 
     //General
-    public static final String TOKEN = "OTY3OTczNzkyNzY2ODkwMDk0.Gf6rjr.xbxplvil7gyu5J2SDO-jLgEI7TvIH3DeKDDUos";
     public static final String GUILD_ID = "969822792520454204";
     public static final String GENERAL_TEXT_CHANNEL = "969822792520454207";
 
