@@ -24,7 +24,7 @@ public class GiveRole implements CommandExecutor {
         if (sender instanceof Player) {
             Guild guild = simpleDiscordBridge.getJda().getGuildById(Const.GUILD_ID);
             if (guild != null) {
-                String member = MembersHelp.getMember(args, guild);
+                String member = MembersHelp.getMemberAsId(args, guild);
                 String role = RolesHelp.getrole(args);
                 if (member != null) {
                     if (role != null) {

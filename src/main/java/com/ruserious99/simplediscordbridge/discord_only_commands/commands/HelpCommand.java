@@ -11,12 +11,18 @@ public class HelpCommand implements ICommand {
 
     @Override
     public void executeCommand(String[] args, Guild guild, Member member, TextChannel textChannel, Message message) {
+        message.delete().queue();
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
         embedBuilder.setColor(0xb7c1ac);
         embedBuilder.setTitle("usage");
-        embedBuilder.setDescription("**!help** - print this" +
-                "\n **!clear <integer>** - clears some messages");
+        embedBuilder.setDescription("**!help** - print this"
+                + "\n **!clear <integer>**       - clears messages"
+                + "\n **!ban <duration> <user>** - bans a user"
+                + "\n **!unban <user by id>**    - unbans a user"
+                + "\n **!kick <user> <reason>**  - kicks a user"
+
+        );
 
         textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
     }

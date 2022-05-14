@@ -1,7 +1,6 @@
 package com.ruserious99.simplediscordbridge;
 
-import com.ruserious99.simplediscordbridge.config.ConfigFile;
-import com.ruserious99.simplediscordbridge.config.ConfigValues;
+import com.ruserious99.simplediscordbridge.config.ConfigCommand;
 import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
 import com.ruserious99.simplediscordbridge.commands.GiveRole;
 import com.ruserious99.simplediscordbridge.commands.RemoveRole;
@@ -14,7 +13,6 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import javax.security.auth.login.LoginException;
 
 public final class SimpleDiscordBridge extends JavaPlugin {
@@ -24,10 +22,13 @@ public final class SimpleDiscordBridge extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        ConfigFile.loadConfig();
-        //ConfigValues.loadKeyValues();
 
-        JDABuilder builder = JDABuilder.create(ConfigValues.TOKEN, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES);
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+
+        ConfigCommand configCommand = new ConfigCommand(this);
+
+        JDABuilder builder = JDABuilder.create(configCommand.getToken(), GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES);
         builder.setActivity(Activity.watching("You"));
         builder.setStatus(OnlineStatus.IDLE);
         builder.addEventListeners(new DiscordListener());
@@ -42,21 +43,25 @@ public final class SimpleDiscordBridge extends JavaPlugin {
             e.printStackTrace();
         }
         System.out.println("Success");
-
         registerCommands();
 
     }
+    @Override
+    public void onDisable() {
+    }
+
 
     private void registerCommands() {
         //discord
         CommandManager commandManager = new CommandManager();
         jda.addEventListener(commandManager);
 
-
         //Minecraft
         getCommand("removerole").setExecutor(new RemoveRole(this));
         getCommand("giverole").setExecutor(new GiveRole(this));
     }
+
+
 
     public JDA getJda() {
         return jda;

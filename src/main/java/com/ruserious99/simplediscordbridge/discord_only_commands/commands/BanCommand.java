@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class BanCommand implements ICommand {
     @Override
     public void executeCommand(String[] args, Guild guild, Member member, TextChannel textChannel, Message message) {
+        message.delete().queue();
         if (RolesHelp.hasRole(guild, member, Const.ADMIN_ID)) {
             if (args.length == 3) {
                 Member target = MembersHelp.getMemberasMember(args, guild);

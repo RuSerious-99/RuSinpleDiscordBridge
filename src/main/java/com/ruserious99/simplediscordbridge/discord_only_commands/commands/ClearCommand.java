@@ -17,7 +17,7 @@ public class ClearCommand implements ICommand {
 
     @Override
     public void executeCommand(String[] args, Guild guild, Member member, TextChannel textChannel, Message message) {
-
+        message.delete().queue();
         if (RolesHelp.hasRole(guild, member, Const.ADMIN_ID)) {
             if (args.length == 2) {
                 try {
@@ -37,6 +37,5 @@ public class ClearCommand implements ICommand {
         } else {
             textChannel.sendMessage("Sorry, They forgot to give you that role").queue();
         }
-        message.delete().queue();
     }
 }

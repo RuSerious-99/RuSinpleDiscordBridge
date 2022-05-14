@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.Member;
 
 public class MembersHelp {
 
-    public static String getMember(String[] args, Guild guild) {
+    public static String getMemberAsId(String[] args, Guild guild) {
         for (Member m : guild.getMembers()) {
             if (m.getUser().getName().equals(args[0])) {
                 return m.getUser().getId();
@@ -24,15 +24,5 @@ public class MembersHelp {
         }
         guild.getTextChannelById(Const.GENERAL_TEXT_CHANNEL).sendMessage(args[1] + " was not found ").queue();
         return null;
-    }
-
-
-    public static boolean isMember(Guild guild, String member){
-        for (Member m : guild.getMembers()) {
-            if (m.getUser().getName().equals(member)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
