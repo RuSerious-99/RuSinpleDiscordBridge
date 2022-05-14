@@ -1,5 +1,6 @@
 package com.ruserious99.simplediscordbridge.listeners;
 
+import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
 import com.ruserious99.simplediscordbridge.util.Const;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -9,6 +10,12 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 
 public class Welcome extends ListenerAdapter {
+
+    private final SimpleDiscordBridge simpleDiscordBridge;
+
+    public Welcome(SimpleDiscordBridge simpleDiscordBridge) {
+        this.simpleDiscordBridge = simpleDiscordBridge;
+    }
 
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent e){
@@ -23,7 +30,7 @@ public class Welcome extends ListenerAdapter {
                 textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
 
                 Guild guild = e.getGuild();
-                guild.addRoleToMember(e.getMember().getUser().getId(), guild.getRoleById(Const.MEMBER_ID)).queue();
+                guild.addRoleToMember(e.getMember().getUser().getId(), guild.getRoleById(simpleDiscordBridge.getConfigCommand().getMemberId())).queue();
             }
         }
     }

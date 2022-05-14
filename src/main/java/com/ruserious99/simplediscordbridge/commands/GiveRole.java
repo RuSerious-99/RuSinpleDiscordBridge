@@ -22,14 +22,14 @@ public class GiveRole implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
-            Guild guild = simpleDiscordBridge.getJda().getGuildById(Const.GUILD_ID);
+            Guild guild = simpleDiscordBridge.getJda().getGuildById(simpleDiscordBridge.getConfigCommand().getGuildId());
             if (guild != null) {
-                String member = MembersHelp.getMemberAsId(args, guild);
-                String role = RolesHelp.getrole(args);
+                String member = simpleDiscordBridge.getMemberHelp().getMemberAsId(args, guild);
+                String role = simpleDiscordBridge.getRolesHelp().getrole(args);
                 if (member != null) {
                     if (role != null) {
                         guild.addRoleToMember(member, guild.getRoleById(role)).queue();
-                        guild.getTextChannelById(Const.GENERAL_TEXT_CHANNEL).sendMessage(args[1] + " role was given to " + args[0]).queue();
+                        guild.getTextChannelById(simpleDiscordBridge.getConfigCommand().getGeneralTextChannel()).sendMessage(args[1] + " role was given to " + args[0]).queue();
                         return true;
                     }
                 }

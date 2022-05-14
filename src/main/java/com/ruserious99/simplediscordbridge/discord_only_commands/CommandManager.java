@@ -1,5 +1,6 @@
 package com.ruserious99.simplediscordbridge.discord_only_commands;
 
+import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
 import com.ruserious99.simplediscordbridge.discord_only_commands.commands.*;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -10,21 +11,23 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class CommandManager extends ListenerAdapter {
 
-    private final HelpCommand    helpCommand;
-    private final JustHello      justHello;
-    private final ClearCommand   clearCommand;
-    private final KickCommand    kickCommand;
-    private final BanCommand     banCommand;
-    private final UnBanCommand   unBanCommand;
+    private final JustHello justHello;
+    private final HelpCommand helpCommand;
+    private final ClearCommand clearCommand;
+    private final KickCommand kickCommand;
+    private final BanCommand banCommand;
+    private final UnBanCommand unBanCommand;
+    private final SimpleDiscordBridge simpleDiscordBridge;
 
 
-    public CommandManager() {
+    public CommandManager(SimpleDiscordBridge simpleDiscordBridge) {
+        this.simpleDiscordBridge = simpleDiscordBridge;
         this.justHello      = new JustHello();
         this.helpCommand    = new HelpCommand();
-        this.clearCommand   = new ClearCommand();
-        this.kickCommand    = new KickCommand();
-        this.banCommand     = new BanCommand();
-        this.unBanCommand   = new UnBanCommand();
+        this.clearCommand   = new ClearCommand(simpleDiscordBridge);
+        this.kickCommand    = new KickCommand(simpleDiscordBridge);
+        this.banCommand     = new BanCommand(simpleDiscordBridge);
+        this.unBanCommand   = new UnBanCommand(simpleDiscordBridge);
 
     }
 
