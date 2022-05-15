@@ -2,9 +2,6 @@ package com.ruserious99.simplediscordbridge.discord_only_commands.commands;
 
 import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
 import com.ruserious99.simplediscordbridge.discord_only_commands.type.ICommand;
-import com.ruserious99.simplediscordbridge.util.Const;
-import com.ruserious99.simplediscordbridge.util.MembersHelp;
-import com.ruserious99.simplediscordbridge.util.RolesHelp;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -13,7 +10,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class UnBanCommand implements ICommand {
 
 
-    private  SimpleDiscordBridge simpleDiscordBridge;
+    private final SimpleDiscordBridge simpleDiscordBridge;
 
     public UnBanCommand(SimpleDiscordBridge simpleDiscordBridge) {
         this.simpleDiscordBridge = simpleDiscordBridge;

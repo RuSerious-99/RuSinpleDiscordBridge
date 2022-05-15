@@ -69,9 +69,7 @@ public final class SimpleDiscordBridge extends JavaPlugin {
 
     public MembersHelp getMemberHelp() {return memberHelp;}
     public RolesHelp getRolesHelp() {return rolesHelp;}
-    public ConfigCommand getConfigCommand() {
-        return configCommand;
-    }
+    public ConfigCommand getConfigCommand() {return configCommand;}
     public JDA getJda() {
         return jda;
     }
