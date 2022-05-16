@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import javax.security.auth.login.LoginException;
 
 public final class SimpleDiscordBridge extends JavaPlugin {
@@ -43,6 +44,7 @@ public final class SimpleDiscordBridge extends JavaPlugin {
         builder.addEventListeners(new Welcome(this));
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         builder.enableIntents(GatewayIntent.GUILD_MESSAGES);
+        builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS);
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
 
         try {
@@ -55,13 +57,14 @@ public final class SimpleDiscordBridge extends JavaPlugin {
         registerEvents();
 
     }
+
     @Override
     public void onDisable() {
     }
 
     private void registerEvents() {
         ReactionAddEvent reactionAddEvent = new ReactionAddEvent();
-       jda.addEventListener(reactionAddEvent);
+        jda.addEventListener(reactionAddEvent);
     }
 
     private void registerCommands() {
@@ -74,9 +77,18 @@ public final class SimpleDiscordBridge extends JavaPlugin {
         getCommand("giverole").setExecutor(new GiveRole(this));
     }
 
-    public MembersHelp getMemberHelp() {return memberHelp;}
-    public RolesHelp getRolesHelp() {return rolesHelp;}
-    public ConfigCommand getConfigCommand() {return configCommand;}
+    public MembersHelp getMemberHelp() {
+        return memberHelp;
+    }
+
+    public RolesHelp getRolesHelp() {
+        return rolesHelp;
+    }
+
+    public ConfigCommand getConfigCommand() {
+        return configCommand;
+    }
+
     public JDA getJda() {
         return jda;
     }

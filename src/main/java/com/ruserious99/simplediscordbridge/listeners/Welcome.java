@@ -1,7 +1,6 @@
 package com.ruserious99.simplediscordbridge.listeners;
 
 import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
-import com.ruserious99.simplediscordbridge.util.Const;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;

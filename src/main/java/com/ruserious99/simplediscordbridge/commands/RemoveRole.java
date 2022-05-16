@@ -1,10 +1,6 @@
 package com.ruserious99.simplediscordbridge.commands;
 
-import com.ruserious99.simplediscordbridge.config.ConfigCommand;
-import com.ruserious99.simplediscordbridge.util.Const;
 import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
-import com.ruserious99.simplediscordbridge.util.MembersHelp;
-import com.ruserious99.simplediscordbridge.util.RolesHelp;
 import net.dv8tion.jda.api.entities.Guild;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

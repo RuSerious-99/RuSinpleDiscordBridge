@@ -10,7 +10,8 @@ import java.util.HashMap;
 
 public class TicketGuiCommand implements ICommand {
 
-    public static HashMap<Long, Long> ticket_gui = new HashMap<>();
+    //todo make with database
+    public static HashMap<Long, String> ticket_gui = new HashMap<>();
 
 
     @Override
@@ -28,7 +29,7 @@ public class TicketGuiCommand implements ICommand {
                 textChannel1.sendMessageEmbeds(embedBuilder.build()).queue(message1 ->{
                     message1.addReaction("U+1F4DB").queue();
                     long guildId = guild.getIdLong();
-                    long messageId = message.getIdLong();
+                    String messageId = message1.getId();
 
                     if(!ticket_gui.containsKey(guildId)){
                         ticket_gui.put(guildId, messageId);
