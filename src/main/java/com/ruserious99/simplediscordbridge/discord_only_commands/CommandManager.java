@@ -11,23 +11,26 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class CommandManager extends ListenerAdapter {
 
-    private final JustHello justHello;
-    private final HelpCommand helpCommand;
-    private final ClearCommand clearCommand;
-    private final KickCommand kickCommand;
-    private final BanCommand banCommand;
-    private final UnBanCommand unBanCommand;
+    private final JustHello           justHello;
+    private final HelpCommand         helpCommand;
+    private final ClearCommand        clearCommand;
+    private final KickCommand         kickCommand;
+    private final BanCommand          banCommand;
+    private final UnBanCommand        unBanCommand;
     private final SimpleDiscordBridge simpleDiscordBridge;
+    private final TicketGuiCommand    ticketGuiCommand;
+
 
 
     public CommandManager(SimpleDiscordBridge simpleDiscordBridge) {
         this.simpleDiscordBridge = simpleDiscordBridge;
-        this.justHello      = new JustHello();
-        this.helpCommand    = new HelpCommand();
-        this.clearCommand   = new ClearCommand(simpleDiscordBridge);
-        this.kickCommand    = new KickCommand(simpleDiscordBridge);
-        this.banCommand     = new BanCommand(simpleDiscordBridge);
-        this.unBanCommand   = new UnBanCommand(simpleDiscordBridge);
+        this.justHello           = new JustHello();
+        this.helpCommand         = new HelpCommand();
+        this.clearCommand        = new ClearCommand(simpleDiscordBridge);
+        this.kickCommand         = new KickCommand(simpleDiscordBridge);
+        this.banCommand          = new BanCommand(simpleDiscordBridge);
+        this.unBanCommand        = new UnBanCommand(simpleDiscordBridge);
+        this.ticketGuiCommand    = new TicketGuiCommand();
 
     }
 
@@ -42,13 +45,13 @@ public class CommandManager extends ListenerAdapter {
             Message message = e.getMessage();
 
             switch (args[0]) {
-                case "!help" -> this.helpCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!help"          -> this.helpCommand.executeCommand(args, guild, member, textChannel, message);
                 case "Hello", "hello" -> this.justHello.executeCommand(args, guild, member, textChannel, message);
-                case "!clear" -> this.clearCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!kick" -> this.kickCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!ban" -> this.banCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!unban" -> this.unBanCommand.executeCommand(args, guild, member, textChannel, message);
-
+                case "!clear"         -> this.clearCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!kick"          -> this.kickCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!ban"           -> this.banCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!unban"         -> this.unBanCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!ticketgui"     -> this.ticketGuiCommand.executeCommand(args, guild, member, textChannel, message);
             }
         }
     }

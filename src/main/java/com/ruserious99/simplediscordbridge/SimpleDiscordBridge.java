@@ -1,6 +1,7 @@
 package com.ruserious99.simplediscordbridge;
 
 import com.ruserious99.simplediscordbridge.config.ConfigCommand;
+import com.ruserious99.simplediscordbridge.events.ReactionAddEvent;
 import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
 import com.ruserious99.simplediscordbridge.commands.GiveRole;
 import com.ruserious99.simplediscordbridge.commands.RemoveRole;
@@ -23,6 +24,7 @@ public final class SimpleDiscordBridge extends JavaPlugin {
     private ConfigCommand configCommand;
     private RolesHelp rolesHelp;
     private MembersHelp memberHelp;
+
 
     @Override
     public void onEnable() {
@@ -50,12 +52,17 @@ public final class SimpleDiscordBridge extends JavaPlugin {
         }
         System.out.println("Success");
         registerCommands();
+        registerEvents();
 
     }
     @Override
     public void onDisable() {
     }
 
+    private void registerEvents() {
+        ReactionAddEvent reactionAddEvent = new ReactionAddEvent();
+       jda.addEventListener(reactionAddEvent);
+    }
 
     private void registerCommands() {
         //discord

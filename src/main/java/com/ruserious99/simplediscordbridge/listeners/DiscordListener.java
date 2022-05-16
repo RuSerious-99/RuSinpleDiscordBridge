@@ -1,8 +1,6 @@
 package com.ruserious99.simplediscordbridge.listeners;
 
 import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
-import com.ruserious99.simplediscordbridge.util.Const;
-import com.ruserious99.simplediscordbridge.util.RolesHelp;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;

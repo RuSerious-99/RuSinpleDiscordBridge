@@ -21,6 +21,7 @@ public class HelpCommand implements ICommand {
                 + "\n **!ban <duration> <user>** - bans a user"
                 + "\n **!unban <user by id>**    - unbans a user"
                 + "\n **!kick <user> <reason>**  - kicks a user"
+                + "\n **!ticketgui <#channel>**  - kicks a user"
 
         );
 
