@@ -2,6 +2,7 @@ package com.ruserious99.simplediscordbridge;
 
 import com.ruserious99.simplediscordbridge.config.ConfigCommand;
 import com.ruserious99.simplediscordbridge.events.ReactionAddEvent;
+import com.ruserious99.simplediscordbridge.listeners.ButtonClick;
 import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
 import com.ruserious99.simplediscordbridge.commands.GiveRole;
 import com.ruserious99.simplediscordbridge.commands.RemoveRole;
@@ -42,6 +43,7 @@ public final class SimpleDiscordBridge extends JavaPlugin {
         builder.setStatus(OnlineStatus.IDLE);
         builder.addEventListeners(new DiscordListener(this));
         builder.addEventListeners(new Welcome(this));
+        builder.addEventListeners(new ButtonClick());
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         builder.enableIntents(GatewayIntent.GUILD_MESSAGES);
         builder.enableIntents(GatewayIntent.GUILD_MESSAGE_REACTIONS);

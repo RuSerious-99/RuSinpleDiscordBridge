@@ -30,7 +30,7 @@ public class CommandManager extends ListenerAdapter {
         this.kickCommand         = new KickCommand(simpleDiscordBridge);
         this.banCommand          = new BanCommand(simpleDiscordBridge);
         this.unBanCommand        = new UnBanCommand(simpleDiscordBridge);
-        this.ticketGuiCommand    = new TicketGuiCommand();
+        this.ticketGuiCommand    = new TicketGuiCommand(simpleDiscordBridge);
 
     }
 

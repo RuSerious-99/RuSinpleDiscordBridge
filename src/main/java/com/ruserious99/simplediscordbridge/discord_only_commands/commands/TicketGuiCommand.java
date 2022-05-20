@@ -1,41 +1,52 @@
 package com.ruserious99.simplediscordbridge.discord_only_commands.commands;
 
+import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
 import com.ruserious99.simplediscordbridge.discord_only_commands.type.ICommand;
-import com.ruserious99.simplediscordbridge.util.Emotes;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
-
-import java.awt.*;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TicketGuiCommand implements ICommand {
 
-    //todo make with database
     public static HashMap<Long, String> ticket_gui = new HashMap<>();
 
+    private SimpleDiscordBridge simpleDiscordBridge;
+
+    public TicketGuiCommand(SimpleDiscordBridge simpleDiscordBridge) {
+        this.simpleDiscordBridge = simpleDiscordBridge;
+    }
 
     @Override
     public void executeCommand(String[] args, Guild guild, Member member, TextChannel textChannel, Message message) {
-
-        if(args.length == 2){
-            TextChannel textChannel1 = message.getMentionedChannels().get(0);
-            if(textChannel1 != null){
-                EmbedBuilder embedBuilder = new EmbedBuilder();
-
-                embedBuilder.setColor(Color.gray);
-                embedBuilder.setDescription("Server Ticket System");
-                embedBuilder.setDescription("React to this panel to receive support\n by creating a channel, please dont\n abuse this feature.");
-
-                textChannel1.sendMessageEmbeds(embedBuilder.build()).queue(message1 ->{
-                    message1.addReaction("U+1F4DB").queue();
-                    long guildId = guild.getIdLong();
-                    String messageId = message1.getId();
-
-                    if(!ticket_gui.containsKey(guildId)){
-                        ticket_gui.put(guildId, messageId);
-                    }
-                });
+        message.delete().queue();
+        if(member.isOwner() || simpleDiscordBridge.getRolesHelp().hasRole(guild, member, simpleDiscordBridge.getConfigCommand().getAdmin_Id())) {
+            if (message.getContentStripped().startsWith("!ticketgui")) {
+                message.getChannel().sendMessage("Welcome to the Ticket System\n\n" +
+                        "Click one of the buttons below to open a ticket!\n" +
+                        "Please make sure to have any proof,\n" +
+                        "or anything else ready before making a ticket.\n" +
+                        "Once you open a ticket fill out the format and wait for a staff member to reply.").setActionRow(getTicketButtons()).queue();
             }
         }
+        long guildId = guild.getIdLong();
+        String memberId = member.getId();
+
+        if(!ticket_gui.containsKey(guildId)){
+            ticket_gui.put(guildId, memberId);
+        }
+
     }
+
+    private static java.util.List<net.dv8tion.jda.api.interactions.components.buttons.Button> getTicketButtons(){
+        List<net.dv8tion.jda.api.interactions.components.buttons.Button> buttons = new ArrayList<>();
+        buttons.add(net.dv8tion.jda.api.interactions.components.buttons.Button.primary("unban", "Unban Appeal").withEmoji(Emoji.fromUnicode("U+1F6AB")));
+        buttons.add(net.dv8tion.jda.api.interactions.components.buttons.Button.primary("purchase", "Purchases").withEmoji(Emoji.fromUnicode("U+1F4B1")));
+        buttons.add(net.dv8tion.jda.api.interactions.components.buttons.Button.primary("bug", "Bug Report").withEmoji(Emoji.fromUnicode("U+1F41E")));
+        buttons.add(Button.primary("other", "Other").withEmoji(Emoji.fromUnicode("U+2753")));
+
+        return buttons;
+    }
+
 }

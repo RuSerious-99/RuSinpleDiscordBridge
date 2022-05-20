@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ReactionAddEvent extends ListenerAdapter {
 
-    private int count = 0;
+    /*private int count = 0;
 
     @Override
     public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
@@ -26,5 +26,5 @@ public class ReactionAddEvent extends ListenerAdapter {
                 }
             }
         }
-    }
+    }*/
 }
