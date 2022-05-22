@@ -25,7 +25,7 @@ public class ClearCommand implements ICommand {
             if (args.length == 2) {
                 try {
                     if (Integer.parseInt(args[1]) > 1 && Integer.parseInt(args[1]) <= 100) {
-                        List<Message> messages = textChannel.getHistory().retrievePast(Integer.parseInt(args[1])).complete();
+                        List<Message> messages = textChannel.getHistory().retrievePast(Integer.parseInt(args[1]+1)).complete();
                         textChannel.deleteMessages(messages).queue();
                         textChannel.sendMessage("Success: you have deleted " + Integer.parseInt(args[1]) + " messages").queue();
                     } else {

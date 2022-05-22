@@ -35,6 +35,12 @@ public class ConfigCommand {
     public String getHelperId() {
         return simpleDiscordBridge.getConfig().getString("helper_id");
     }
+    public String getStaff() {
+        return simpleDiscordBridge.getConfig().getString("staff");
+    }
+    public String getStaff_Id() {
+        return simpleDiscordBridge.getConfig().getString("staff_id");
+    }
 
 }
 

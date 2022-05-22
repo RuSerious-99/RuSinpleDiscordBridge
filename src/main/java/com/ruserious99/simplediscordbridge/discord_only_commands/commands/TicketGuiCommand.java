@@ -5,14 +5,11 @@ import com.ruserious99.simplediscordbridge.discord_only_commands.type.ICommand;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TicketGuiCommand implements ICommand {
 
-    public static HashMap<Long, String> ticket_gui = new HashMap<>();
-
-    private SimpleDiscordBridge simpleDiscordBridge;
+    private final SimpleDiscordBridge simpleDiscordBridge;
 
     public TicketGuiCommand(SimpleDiscordBridge simpleDiscordBridge) {
         this.simpleDiscordBridge = simpleDiscordBridge;
@@ -23,20 +20,15 @@ public class TicketGuiCommand implements ICommand {
         message.delete().queue();
         if(member.isOwner() || simpleDiscordBridge.getRolesHelp().hasRole(guild, member, simpleDiscordBridge.getConfigCommand().getAdmin_Id())) {
             if (message.getContentStripped().startsWith("!ticketgui")) {
-                message.getChannel().sendMessage("Welcome to the Ticket System\n\n" +
-                        "Click one of the buttons below to open a ticket!\n" +
-                        "Please make sure to have any proof,\n" +
-                        "or anything else ready before making a ticket.\n" +
-                        "Once you open a ticket fill out the format and wait for a staff member to reply.").setActionRow(getTicketButtons()).queue();
+                message.getChannel().sendMessage("""
+                        Welcome to the Ticket System
+
+                        Click one of the buttons below to open a ticket!
+                        Please make sure to have any proof,
+                        or anything else ready before making a ticket.
+                        Once you open a ticket fill out the format and wait for a staff member to reply.""").setActionRow(getTicketButtons()).queue();
             }
         }
-        long guildId = guild.getIdLong();
-        String memberId = member.getId();
-
-        if(!ticket_gui.containsKey(guildId)){
-            ticket_gui.put(guildId, memberId);
-        }
-
     }
 
     private static java.util.List<net.dv8tion.jda.api.interactions.components.buttons.Button> getTicketButtons(){
