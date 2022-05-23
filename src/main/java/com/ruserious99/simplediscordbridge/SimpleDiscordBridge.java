@@ -1,6 +1,7 @@
 package com.ruserious99.simplediscordbridge;
 
 import com.ruserious99.simplediscordbridge.config.ConfigCommand;
+import com.ruserious99.simplediscordbridge.database.Database;
 import com.ruserious99.simplediscordbridge.events.ReactionAddEvent;
 import com.ruserious99.simplediscordbridge.listeners.ButtonClick;
 import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
@@ -19,9 +20,11 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
+import java.sql.SQLException;
 
 public final class SimpleDiscordBridge extends JavaPlugin {
 
+    private Database database;
     private JDA jda;
     private ConfigCommand configCommand;
     private RolesHelp rolesHelp;
@@ -30,6 +33,15 @@ public final class SimpleDiscordBridge extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        database = new Database();
+        try {
+            database.connect();
+        } catch (SQLException e) {
+            System.out.println("Unable to connect to database, plugin is disabled");
+            e.printStackTrace();
+        }
+        System.out.println("data is connected " + database.isConnected());
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -62,6 +74,7 @@ public final class SimpleDiscordBridge extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        database.disconnect();
     }
 
     private void registerEvents() {
