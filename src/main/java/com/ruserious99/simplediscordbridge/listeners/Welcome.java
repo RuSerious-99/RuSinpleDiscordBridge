@@ -7,6 +7,8 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Objects;
+
 
 public class Welcome extends ListenerAdapter {
 
@@ -29,7 +31,7 @@ public class Welcome extends ListenerAdapter {
                 textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
 
                 Guild guild = e.getGuild();
-                guild.addRoleToMember(e.getMember().getUser().getId(), guild.getRoleById(simpleDiscordBridge.getConfigCommand().getMemberId())).queue();
+                guild.addRoleToMember(e.getMember().getUser().getId(), Objects.requireNonNull(guild.getRoleById(simpleDiscordBridge.getConfigCommand().getMemberId()))).queue();
             }
         }
     }

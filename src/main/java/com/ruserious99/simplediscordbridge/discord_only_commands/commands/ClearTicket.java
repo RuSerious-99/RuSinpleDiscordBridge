@@ -13,7 +13,6 @@ public class ClearTicket implements ICommand {
 
     @Override
     public void executeCommand(String[] args, Guild guild, Member member, TextChannel textChannel, Message message) {
-        message.delete().queue();
         if (args.length == 1) {
             if (ButtonClick.hasOpenTicket.containsKey(textChannel.getId())) {
                 if (member.hasPermission(Permission.ADMINISTRATOR)) {

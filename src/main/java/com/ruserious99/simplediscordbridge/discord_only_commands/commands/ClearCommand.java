@@ -27,18 +27,18 @@ public class ClearCommand implements ICommand {
                     if (Integer.parseInt(args[1]) > 1 && Integer.parseInt(args[1]) <= 100) {
                         List<Message> messages = textChannel.getHistory().retrievePast(Integer.parseInt(args[1]+1)).complete();
                         textChannel.deleteMessages(messages).queue();
-                        textChannel.sendMessage("Success: you have deleted " + Integer.parseInt(args[1]) + " messages").queue();
+                        member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Success: you have deleted " + Integer.parseInt(args[1]) + " messages").queue());
                     } else {
-                        textChannel.sendMessage("usage = !clear <number between 2-100>").queue();
+                        member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("usage = !clear <number between 2-100>").queue());
                     }
                 } catch (InsufficientPermissionException e) {
-                    textChannel.sendMessage("Sorry, They forgot to give me that permission").queue();
+                    member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Sorry, They forgot to give me that permission").queue());
                 }
             } else {
-                textChannel.sendMessage("usage = !clear <number between 2-100>").queue();
+                member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("usage = !clear <number between 2-100>").queue());
             }
         } else {
-            textChannel.sendMessage("Sorry, They forgot to give you that role").queue();
+            member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Sorry, They forgot to give you that role").queue());
         }
     }
 }

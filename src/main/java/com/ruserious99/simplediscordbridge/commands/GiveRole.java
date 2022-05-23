@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class GiveRole implements CommandExecutor {
 
     private final SimpleDiscordBridge simpleDiscordBridge;
@@ -25,8 +27,8 @@ public class GiveRole implements CommandExecutor {
                 String role = simpleDiscordBridge.getRolesHelp().getrole(args);
                 if (member != null) {
                     if (role != null) {
-                        guild.addRoleToMember(member, guild.getRoleById(role)).queue();
-                        guild.getTextChannelById(simpleDiscordBridge.getConfigCommand().getGeneralTextChannel()).sendMessage(args[1] + " role was given to " + args[0]).queue();
+                        guild.addRoleToMember(member, Objects.requireNonNull(guild.getRoleById(role))).queue();
+                        Objects.requireNonNull(guild.getTextChannelById(simpleDiscordBridge.getConfigCommand().getGeneralTextChannel())).sendMessage(args[1] + " role was given to " + args[0]).queue();
                         return true;
                     }
                 }

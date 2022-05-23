@@ -7,6 +7,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.util.Objects;
+
 public class UnBanCommand implements ICommand {
 
 
@@ -22,12 +24,12 @@ public class UnBanCommand implements ICommand {
         if (simpleDiscordBridge.getRolesHelp().hasRole(guild, member, simpleDiscordBridge.getConfigCommand().getAdmin_Id())) {
             if (args.length == 2) {
                 guild.unban(args[1]).queue();
-                textChannel.sendMessage("Success: You UnBanned " + guild.getMemberById(args[1]).getUser().getName()).queue();
+                member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Success: You UnBanned " + Objects.requireNonNull(guild.getMemberById(args[1])).getUser().getName()).queue());
             } else {
-                textChannel.sendMessage("usage = !unban <user-id>").queue();
+                member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("usage = !unban <user-id>").queue());
             }
         } else {
-            textChannel.sendMessage("Sorry, They forgot to give you that role").queue();
+            member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Sorry, They forgot to give you that role").queue());
         }
     }
 }

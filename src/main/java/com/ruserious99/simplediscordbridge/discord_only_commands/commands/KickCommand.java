@@ -25,14 +25,13 @@ public class KickCommand implements ICommand {
                 Member target =simpleDiscordBridge.getMemberHelp().getMemberasMember(args, guild);
                 if (target != null) {
                     target.kick(args[2]).queue();
-                    textChannel.sendMessage("Success: You Kicked " + args[1] + " for " + args[2]).queue();
+                    member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Success: You Kicked " + args[1] + " for " + args[2]).queue());
                 }
             } else {
-                textChannel.sendMessage("usage = !kick <user> <reason>").queue();
+                member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("usage = !kick <user> <reason>").queue());
             }
         } else {
-            textChannel.sendMessage("Sorry, They forgot to give you that role").queue();
-
+            member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Sorry, They forgot to give you that role").queue());
         }
     }
 }

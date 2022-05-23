@@ -22,10 +22,9 @@ public class HelpCommand implements ICommand {
                 + "\n **!unban <user by id>**    - unbans a user"
                 + "\n **!kick <user> <reason>**  - kicks a user"
                 + "\n **!ticketgui**  - creates ticket GUI"
-                + "\n **!clear_ticket <#channel_Id>**  - deletes channel"
+                + "\n **!clear_ticket**  - deletes channel"
 
         );
-
-        textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
+        member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessageEmbeds(embedBuilder.build()).queue());
     }
 }
