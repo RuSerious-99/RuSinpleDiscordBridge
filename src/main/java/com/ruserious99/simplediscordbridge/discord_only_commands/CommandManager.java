@@ -54,7 +54,7 @@ public class CommandManager extends ListenerAdapter {
                 case "!ban"           -> this.banCommand.executeCommand(args, guild, member, textChannel, message);
                 case "!unban"         -> this.unBanCommand.executeCommand(args, guild, member, textChannel, message);
                 case "!ticketgui"     -> this.ticketGuiCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!clear_ticket"  -> this.clearTicket.executeCommand(args, guild, member, textChannel, message);
+                case "!close"         -> this.clearTicket.executeCommand(args, guild, member, textChannel, message);
 
             }
         }
