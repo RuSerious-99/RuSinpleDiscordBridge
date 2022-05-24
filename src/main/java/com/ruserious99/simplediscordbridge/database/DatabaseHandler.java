@@ -6,6 +6,7 @@ import java.util.Objects;
 public class DatabaseHandler extends Config{
 
      Connection connection;
+     Connection connectionRoles;
 
      public Connection getConnection() throws SQLException {
         connection = DriverManager.getConnection(
@@ -16,6 +17,14 @@ public class DatabaseHandler extends Config{
         return connection;
     }
 
+    public Connection getConnectionRoles() throws SQLException {
+        connection = DriverManager.getConnection(
+                "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE_ROLES + "?useSSL=false",
+                USERNAME,
+                PASSWORD);
+
+        return connectionRoles;
+    }
     public boolean isConnected(){return connection != null;}
 
     public void disconnect(){
@@ -49,7 +58,7 @@ public class DatabaseHandler extends Config{
                 + "VALUES(?,?)";
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(insert);
+            PreparedStatement preparedStatement = getConnection().prepareStatement(insert);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, channelId);
 
@@ -100,5 +109,28 @@ public class DatabaseHandler extends Config{
             }
         }
         return false;
+    }
+
+    public void addReactionRole(String guildId, String channelId, String messageId, String emote, String roleId){
+        String insert = "INSERT INTO " + Const.USERS_TABLE_ROLES + "("
+                + Const.GUILD_ID + ","
+                + Const.CHANNEL_ID_ROLES + ","
+                + Const.MESSAGE_ID + ","
+                + Const.EMOTE + ","
+                + Const.ROLE_ID + ")"
+                + "VALUES(?,?,?,?,?)";
+
+        try {
+            PreparedStatement preparedStatement = getConnectionRoles().prepareStatement(insert);
+            preparedStatement.setString(1, guildId);
+            preparedStatement.setString(2, channelId);
+            preparedStatement.setString(3, messageId);
+            preparedStatement.setString(4, emote);
+            preparedStatement.setString(5, roleId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

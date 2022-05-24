@@ -20,6 +20,7 @@ public class CommandManager extends ListenerAdapter {
     private final SimpleDiscordBridge simpleDiscordBridge;
     private final TicketGuiCommand    ticketGuiCommand;
     private final ClearTicket         clearTicket;
+    private final ReactionCommand     reactionCommand;
 
 
 
@@ -33,6 +34,7 @@ public class CommandManager extends ListenerAdapter {
         this.unBanCommand        = new UnBanCommand(simpleDiscordBridge);
         this.ticketGuiCommand    = new TicketGuiCommand(simpleDiscordBridge);
         this.clearTicket         = new ClearTicket();
+        this.reactionCommand     = new ReactionCommand(simpleDiscordBridge);
 
     }
 
@@ -55,6 +57,7 @@ public class CommandManager extends ListenerAdapter {
                 case "!unban"         -> this.unBanCommand.executeCommand(args, guild, member, textChannel, message);
                 case "!ticketgui"     -> this.ticketGuiCommand.executeCommand(args, guild, member, textChannel, message);
                 case "!close"         -> this.clearTicket.executeCommand(args, guild, member, textChannel, message);
+                case "!reaction"      -> this.reactionCommand.executeCommand(args, guild, member, textChannel, message);
 
             }
         }
