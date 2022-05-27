@@ -1,30 +1,46 @@
 package com.ruserious99.simplediscordbridge.events;
 
-import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
-import com.ruserious99.simplediscordbridge.discord_only_commands.commands.TicketGuiCommand;
+import com.ruserious99.simplediscordbridge.database.DatabaseHandler;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class ReactionAddEvent extends ListenerAdapter {
 
-    /*private int count = 0;
+    DatabaseHandler databaseHandler = new DatabaseHandler();
 
     @Override
     public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
 
-        if (!event.getMember().getUser().isBot()) {
-            if (event.getReactionEmote().getName().equals("\uD83D\uDCDB")) {
-                long guildIdLong = event.getGuild().getIdLong();
-                String rawMassageId = TicketGuiCommand.ticket_gui.get(guildIdLong);
+        if (event.getChannel().getType() == ChannelType.TEXT) {
+            if (!Objects.requireNonNull(event.getMember()).getUser().isBot()) {
+                String guildId = event.getGuild().getId();
+                String channelId = event.getChannel().getId();
+                String messageId = event.getMessageId();
+                String emote = event.getReactionEmote().getEmoji();
 
-                if (rawMassageId.equals(event.getMessageId())) {
-                    event.getReaction().removeReaction(event.getUser()).queue();
-                    event.getGuild().createTextChannel("ticket - " + count).queue();
-
-                    count += 1;
-                }
+                String roleId = databaseHandler.findReactionRole(guildId, channelId, messageId, emote);
+                event.getGuild().addRoleToMember(event.getMember(), Objects.requireNonNull(event.getGuild().getRoleById(roleId))).queue();
             }
         }
-    }*/
+    }
+
+    @Override
+    public void onMessageReactionRemove(@NotNull MessageReactionRemoveEvent event) {
+        if (event.getChannel().getType() == ChannelType.TEXT) {
+            if (!Objects.requireNonNull(event.getMember()).getUser().isBot()) {
+                String guildId = event.getGuild().getId();
+                String channelId = event.getChannel().getId();
+                String messageId = event.getMessageId();
+                String emote = event.getReactionEmote().getEmoji();
+
+                String roleId = databaseHandler.findReactionRole(guildId, channelId, messageId, emote);
+                event.getGuild().removeRoleFromMember(event.getMember(), Objects.requireNonNull(event.getGuild().getRoleById(roleId))).queue();
+            }
+        }
+    }
 }

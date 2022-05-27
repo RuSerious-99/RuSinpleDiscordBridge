@@ -17,7 +17,14 @@ public class Const {
     public static final String CHANNEL_ID_ROLES = "channel_id_roles";
     public static final String MESSAGE_ID = "message_id";
     public static final String EMOTE = "emote";
-    public static final String ROLE_ID = "role_id";
+    public static final String ROLE_ID = "roles_id";
 
+
+
+
+    //BadWords
+    public static final String BAD_WORDS = "bad_words";
+    //columns]
+    public static final String WORDS = "words";
 
 }

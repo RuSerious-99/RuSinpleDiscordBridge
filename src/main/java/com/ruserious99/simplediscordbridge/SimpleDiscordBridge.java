@@ -1,13 +1,13 @@
 package com.ruserious99.simplediscordbridge;
 
+import com.ruserious99.simplediscordbridge.commands.GiveRole;
+import com.ruserious99.simplediscordbridge.commands.RemoveRole;
 import com.ruserious99.simplediscordbridge.config.ConfigCommand;
 import com.ruserious99.simplediscordbridge.database.DatabaseHandler;
+import com.ruserious99.simplediscordbridge.discord_only_commands.CommandManager;
 import com.ruserious99.simplediscordbridge.events.ReactionAddEvent;
 import com.ruserious99.simplediscordbridge.listeners.ButtonClick;
 import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
-import com.ruserious99.simplediscordbridge.commands.GiveRole;
-import com.ruserious99.simplediscordbridge.commands.RemoveRole;
-import com.ruserious99.simplediscordbridge.discord_only_commands.CommandManager;
 import com.ruserious99.simplediscordbridge.listeners.Welcome;
 import com.ruserious99.simplediscordbridge.util.MembersHelp;
 import com.ruserious99.simplediscordbridge.util.RolesHelp;
@@ -18,8 +18,8 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import javax.security.auth.login.LoginException;
-import java.sql.SQLException;
 
 public final class SimpleDiscordBridge extends JavaPlugin {
 
@@ -69,6 +69,7 @@ public final class SimpleDiscordBridge extends JavaPlugin {
     private void registerEvents() {
         ReactionAddEvent reactionAddEvent = new ReactionAddEvent();
         jda.addEventListener(reactionAddEvent);
+
     }
 
     private void registerCommands() {

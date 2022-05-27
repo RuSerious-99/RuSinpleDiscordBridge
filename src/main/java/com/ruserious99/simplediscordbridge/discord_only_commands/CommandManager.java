@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Objects;
+
 public class CommandManager extends ListenerAdapter {
 
     private final JustHello           justHello;
@@ -17,15 +19,14 @@ public class CommandManager extends ListenerAdapter {
     private final KickCommand         kickCommand;
     private final BanCommand          banCommand;
     private final UnBanCommand        unBanCommand;
-    private final SimpleDiscordBridge simpleDiscordBridge;
     private final TicketGuiCommand    ticketGuiCommand;
     private final ClearTicket         clearTicket;
     private final ReactionCommand     reactionCommand;
+    private final BadWordCommand     badWordCommand;
 
 
 
     public CommandManager(SimpleDiscordBridge simpleDiscordBridge) {
-        this.simpleDiscordBridge = simpleDiscordBridge;
         this.justHello           = new JustHello();
         this.helpCommand         = new HelpCommand();
         this.clearCommand        = new ClearCommand(simpleDiscordBridge);
@@ -35,12 +36,13 @@ public class CommandManager extends ListenerAdapter {
         this.ticketGuiCommand    = new TicketGuiCommand(simpleDiscordBridge);
         this.clearTicket         = new ClearTicket();
         this.reactionCommand     = new ReactionCommand(simpleDiscordBridge);
+        this.badWordCommand      = new BadWordCommand();
 
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent e){
-        if(!e.getMember().getUser().isBot()){
+        if(!Objects.requireNonNull(e.getMember()).getUser().isBot()){
             String[] args = e.getMessage().getContentRaw().split(" ");
 
             Guild guild = e.getGuild();
@@ -58,6 +60,7 @@ public class CommandManager extends ListenerAdapter {
                 case "!ticketgui"     -> this.ticketGuiCommand.executeCommand(args, guild, member, textChannel, message);
                 case "!close"         -> this.clearTicket.executeCommand(args, guild, member, textChannel, message);
                 case "!reaction"      -> this.reactionCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!badword"       -> this.badWordCommand.executeCommand(args, guild, member, textChannel, message);
 
             }
         }

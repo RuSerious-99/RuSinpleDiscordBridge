@@ -23,6 +23,7 @@ public class HelpCommand implements ICommand {
                 + "\n **!kick <user> <reason>**  - kicks a user"
                 + "\n **!ticketgui**  - creates ticket GUI"
                 + "\n **!close** - deletes channel"
+                + "\n **!reaction <guildId> <channelId> <messageId> <emote> <roleId>** - creates a reaction to give role"
 
         );
         member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessageEmbeds(embedBuilder.build()).queue());

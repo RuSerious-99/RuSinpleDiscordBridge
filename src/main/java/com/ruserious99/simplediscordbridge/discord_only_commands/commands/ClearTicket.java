@@ -25,5 +25,5 @@ public class ClearTicket implements ICommand {
             }else{
                 member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("User not found").queue());
             }
-        }
+    }
 }
