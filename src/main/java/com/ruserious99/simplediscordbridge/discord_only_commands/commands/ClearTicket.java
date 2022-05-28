@@ -15,15 +15,14 @@ public class ClearTicket implements ICommand {
 
     @Override
     public void executeCommand(String[] args, Guild guild, Member member, TextChannel textChannel, Message message) {
-
-            if (databaseHandler.hasTicketById(textChannel.getId())) {
-                if (member.hasPermission(Permission.ADMINISTRATOR)) {
-                    member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Successfully deleting channel with id " + textChannel.getId()).queue());
-                    databaseHandler.deleteTicket(textChannel.getId());
-                    textChannel.delete().queue();
-                }
-            }else{
-                member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("User not found").queue());
+        if (databaseHandler.hasTicketById(textChannel.getId())) {
+            if (member.hasPermission(Permission.ADMINISTRATOR)) {
+                member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("Successfully deleting channel with id " + textChannel.getId()).queue());
+                databaseHandler.deleteTicket(textChannel.getId());
+                textChannel.delete().queue();
             }
+        } else {
+            member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("User not found").queue());
+        }
     }
 }

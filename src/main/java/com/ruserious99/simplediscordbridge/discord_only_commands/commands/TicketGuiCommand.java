@@ -1,24 +1,18 @@
 package com.ruserious99.simplediscordbridge.discord_only_commands.commands;
 
-import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
 import com.ruserious99.simplediscordbridge.discord_only_commands.type.ICommand;
+import com.ruserious99.simplediscordbridge.util.RolesHelp;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TicketGuiCommand implements ICommand {
-
-    private final SimpleDiscordBridge simpleDiscordBridge;
-
-    public TicketGuiCommand(SimpleDiscordBridge simpleDiscordBridge) {
-        this.simpleDiscordBridge = simpleDiscordBridge;
-    }
-
     @Override
     public void executeCommand(String[] args, Guild guild, Member member, TextChannel textChannel, Message message) {
         message.delete().queue();
-        if(member.isOwner() || simpleDiscordBridge.getRolesHelp().hasRole(guild, member, simpleDiscordBridge.getConfigCommand().getAdmin_Id())) {
+        if(RolesHelp.userHasRole(member, "admin")) {
             if (message.getContentStripped().startsWith("!ticketgui")) {
                 message.getChannel().sendMessage("""
                         Welcome to the Ticket System

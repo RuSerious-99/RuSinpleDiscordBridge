@@ -48,7 +48,7 @@ public class DatabaseHandler extends Config {
 
     public void addBadWord(String word){
         String insert = "INSERT INTO " + Const.BAD_WORDS + "("
-                + Const.WORDS + ","
+                + Const.WORDS + ")"
                 + "VALUES(?)";
         try {
             PreparedStatement preparedStatement = getConnection().prepareStatement(insert);

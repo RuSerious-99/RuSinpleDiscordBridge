@@ -9,8 +9,6 @@ import com.ruserious99.simplediscordbridge.events.ReactionAddEvent;
 import com.ruserious99.simplediscordbridge.listeners.ButtonClick;
 import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
 import com.ruserious99.simplediscordbridge.listeners.Welcome;
-import com.ruserious99.simplediscordbridge.util.MembersHelp;
-import com.ruserious99.simplediscordbridge.util.RolesHelp;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -20,13 +18,12 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
+import java.util.Objects;
 
 public final class SimpleDiscordBridge extends JavaPlugin {
 
     private JDA jda;
     private ConfigCommand configCommand;
-    private RolesHelp rolesHelp;
-    private MembersHelp memberHelp;
 
     @Override
     public void onEnable() {
@@ -35,9 +32,6 @@ public final class SimpleDiscordBridge extends JavaPlugin {
         saveDefaultConfig();
 
         configCommand = new ConfigCommand(this);
-        rolesHelp = new RolesHelp(this);
-        memberHelp = new MembersHelp(this);
-
         JDABuilder builder = JDABuilder.create(configCommand.getToken(), GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES);
         builder.setActivity(Activity.watching("You"));
         builder.setStatus(OnlineStatus.IDLE);
@@ -74,22 +68,12 @@ public final class SimpleDiscordBridge extends JavaPlugin {
 
     private void registerCommands() {
         //discord
-        CommandManager commandManager = new CommandManager(this);
+        CommandManager commandManager = new CommandManager();
         jda.addEventListener(commandManager);
 
         //Minecraft
-        getCommand("removerole").setExecutor(new RemoveRole(this));
-        getCommand("giverole").setExecutor(new GiveRole(this));
-    }
-
-
-
-    public MembersHelp getMemberHelp() {
-        return memberHelp;
-    }
-
-    public RolesHelp getRolesHelp() {
-        return rolesHelp;
+        Objects.requireNonNull(getCommand("removerole")).setExecutor(new RemoveRole(this));
+        Objects.requireNonNull(getCommand("giverole")).setExecutor(new GiveRole(this));
     }
 
     public ConfigCommand getConfigCommand() {

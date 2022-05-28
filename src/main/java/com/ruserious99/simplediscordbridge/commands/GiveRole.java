@@ -1,6 +1,8 @@
 package com.ruserious99.simplediscordbridge.commands;
 
 import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
+import com.ruserious99.simplediscordbridge.util.MembersHelp;
+import com.ruserious99.simplediscordbridge.util.RolesHelp;
 import net.dv8tion.jda.api.entities.Guild;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,8 +25,8 @@ public class GiveRole implements CommandExecutor {
         if (sender instanceof Player) {
             Guild guild = simpleDiscordBridge.getJda().getGuildById(simpleDiscordBridge.getConfigCommand().getGuildId());
             if (guild != null) {
-                String member = simpleDiscordBridge.getMemberHelp().getMemberAsId(args, guild);
-                String role = simpleDiscordBridge.getRolesHelp().getrole(args);
+                String member = MembersHelp.getMemberAsId(args, guild);
+                String role = RolesHelp.getrole(args);
                 if (member != null) {
                     if (role != null) {
                         guild.addRoleToMember(member, Objects.requireNonNull(guild.getRoleById(role))).queue();

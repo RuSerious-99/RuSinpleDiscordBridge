@@ -1,6 +1,5 @@
 package com.ruserious99.simplediscordbridge.discord_only_commands;
 
-import com.ruserious99.simplediscordbridge.SimpleDiscordBridge;
 import com.ruserious99.simplediscordbridge.discord_only_commands.commands.*;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -26,16 +25,16 @@ public class CommandManager extends ListenerAdapter {
 
 
 
-    public CommandManager(SimpleDiscordBridge simpleDiscordBridge) {
+    public CommandManager() {
         this.justHello           = new JustHello();
         this.helpCommand         = new HelpCommand();
-        this.clearCommand        = new ClearCommand(simpleDiscordBridge);
-        this.kickCommand         = new KickCommand(simpleDiscordBridge);
-        this.banCommand          = new BanCommand(simpleDiscordBridge);
-        this.unBanCommand        = new UnBanCommand(simpleDiscordBridge);
-        this.ticketGuiCommand    = new TicketGuiCommand(simpleDiscordBridge);
+        this.clearCommand        = new ClearCommand();
+        this.kickCommand         = new KickCommand();
+        this.banCommand          = new BanCommand();
+        this.unBanCommand        = new UnBanCommand();
+        this.ticketGuiCommand    = new TicketGuiCommand();
         this.clearTicket         = new ClearTicket();
-        this.reactionCommand     = new ReactionCommand(simpleDiscordBridge);
+        this.reactionCommand     = new ReactionCommand();
         this.badWordCommand      = new BadWordCommand();
 
     }
