@@ -5,6 +5,7 @@ import com.ruserious99.simplediscordbridge.commands.RemoveRole;
 import com.ruserious99.simplediscordbridge.config.ConfigCommand;
 import com.ruserious99.simplediscordbridge.database.DatabaseHandler;
 import com.ruserious99.simplediscordbridge.discord_only_commands.CommandManager;
+import com.ruserious99.simplediscordbridge.events.DeleteMessageEvent;
 import com.ruserious99.simplediscordbridge.events.ReactionAddEvent;
 import com.ruserious99.simplediscordbridge.listeners.ButtonClick;
 import com.ruserious99.simplediscordbridge.listeners.DiscordListener;
@@ -63,6 +64,8 @@ public final class SimpleDiscordBridge extends JavaPlugin {
     private void registerEvents() {
         ReactionAddEvent reactionAddEvent = new ReactionAddEvent();
         jda.addEventListener(reactionAddEvent);
+        DeleteMessageEvent deleteMessageEvent = new DeleteMessageEvent();
+        jda.addEventListener(deleteMessageEvent);
 
     }
 

@@ -1,6 +1,7 @@
 package com.ruserious99.simplediscordbridge.database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseHandler extends Config {
 
@@ -46,7 +47,7 @@ public class DatabaseHandler extends Config {
 
     }
 
-    public void addBadWord(String word){
+    public void addBadWord(String word) {
         String insert = "INSERT INTO " + Const.BAD_WORDS + "("
                 + Const.WORDS + ")"
                 + "VALUES(?)";
@@ -123,16 +124,16 @@ public class DatabaseHandler extends Config {
     public String findReactionRole(String guildId, String channelId, String messageId, String emote) {
 
         if (!guildId.equals("")) {
-            String query = "SELECT * FROM " + Const.USERS_TABLE_ROLES ;
+            String query = "SELECT * FROM " + Const.USERS_TABLE_ROLES;
             try {
                 PreparedStatement preparedStatement = getConnection().prepareStatement(query);
                 ResultSet resultSet = preparedStatement.executeQuery();
 
-                while (resultSet.next()){
-                    if(resultSet.getString("guild_id").equals(guildId)
-                    && resultSet.getString("channel_id_roles").equals(channelId)
-                    && resultSet.getString("message_id").equals(messageId)
-                    && resultSet.getString("emote").equals(emote)){
+                while (resultSet.next()) {
+                    if (resultSet.getString("guild_id").equals(guildId)
+                            && resultSet.getString("channel_id_roles").equals(channelId)
+                            && resultSet.getString("message_id").equals(messageId)
+                            && resultSet.getString("emote").equals(emote)) {
                         return resultSet.getString("roles_id");
                     }
                 }
@@ -143,27 +144,62 @@ public class DatabaseHandler extends Config {
         return null;
     }
 
-            public void addReactionRole (String guildId, String channelId, String messageId, String emote, String roleId)
-            {
-                String insert = "INSERT INTO " + Const.USERS_TABLE_ROLES + "("
-                        + Const.GUILD_ID + ","
-                        + Const.CHANNEL_ID_ROLES + ","
-                        + Const.MESSAGE_ID + ","
-                        + Const.EMOTE + ","
-                        + Const.ROLE_ID + ")"
-                        + "VALUES(?,?,?,?,?)";
+    public void addReactionRole(String guildId, String channelId, String messageId, String emote, String roleId) {
+        String insert = "INSERT INTO " + Const.USERS_TABLE_ROLES + "("
+                + Const.GUILD_ID + ","
+                + Const.CHANNEL_ID_ROLES + ","
+                + Const.MESSAGE_ID + ","
+                + Const.EMOTE + ","
+                + Const.ROLE_ID + ")"
+                + "VALUES(?,?,?,?,?)";
 
-                try {
-                    PreparedStatement preparedStatement = getConnection().prepareStatement(insert);
-                    preparedStatement.setString(1, guildId);
-                    preparedStatement.setString(2, channelId);
-                    preparedStatement.setString(3, messageId);
-                    preparedStatement.setString(4, emote);
-                    preparedStatement.setString(5, roleId);
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(insert);
+            preparedStatement.setString(1, guildId);
+            preparedStatement.setString(2, channelId);
+            preparedStatement.setString(3, messageId);
+            preparedStatement.setString(4, emote);
+            preparedStatement.setString(5, roleId);
 
-                    preparedStatement.executeUpdate();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
+
+    public int getBadWordCount() {
+        String query = "SELECT COUNT(*) FROM " + Const.BAD_WORDS;
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    public ArrayList<String> getBadWords() {
+
+        ArrayList<String> words = new ArrayList<>();
+
+        String query = "SELECT * FROM " + Const.BAD_WORDS;
+
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                words.add(resultSet.getString(Const.WORDS));
+            }
+            return words;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
