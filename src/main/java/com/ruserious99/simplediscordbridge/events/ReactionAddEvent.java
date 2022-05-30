@@ -23,14 +23,18 @@ public class ReactionAddEvent extends ListenerAdapter {
                 String messageId = event.getMessageId();
                 String emote = event.getReactionEmote().getEmoji();
 
-                String roleId = databaseHandler.findReactionRole(guildId, channelId, messageId, emote);
-                event.getGuild().addRoleToMember(event.getMember(), Objects.requireNonNull(event.getGuild().getRoleById(roleId))).queue();
+                if (databaseHandler.isReactionRole(guildId, channelId, messageId, emote)) {
+                    String roleId = databaseHandler.findReactionRole(guildId, channelId, messageId, emote);
+                    event.getGuild().addRoleToMember(event.getMember(), Objects.requireNonNull(event.getGuild().getRoleById(roleId))).queue();
+                }
             }
         }
     }
 
+
     @Override
     public void onMessageReactionRemove(@NotNull MessageReactionRemoveEvent event) {
+
         if (event.getChannel().getType() == ChannelType.TEXT) {
             if (!Objects.requireNonNull(event.getMember()).getUser().isBot()) {
                 String guildId = event.getGuild().getId();
@@ -38,8 +42,10 @@ public class ReactionAddEvent extends ListenerAdapter {
                 String messageId = event.getMessageId();
                 String emote = event.getReactionEmote().getEmoji();
 
-                String roleId = databaseHandler.findReactionRole(guildId, channelId, messageId, emote);
-                event.getGuild().removeRoleFromMember(event.getMember(), Objects.requireNonNull(event.getGuild().getRoleById(roleId))).queue();
+                if (databaseHandler.isReactionRole(guildId, channelId, messageId, emote)) {
+                    String roleId = databaseHandler.findReactionRole(guildId, channelId, messageId, emote);
+                    event.getGuild().removeRoleFromMember(event.getMember(), Objects.requireNonNull(event.getGuild().getRoleById(roleId))).queue();
+                }
             }
         }
     }

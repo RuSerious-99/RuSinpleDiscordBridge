@@ -22,4 +22,9 @@ public class Const {
     //Columns BadWords
     public static final String WORDS = "words";
 
+    //suggestion channel
+    public static final String SUGGESTION_TABLE = "suggestions";
+    //Columns suggestion channel
+    public static final String SUGGESTIONS_CHANNEL_ID = "channel_id";
+
 }

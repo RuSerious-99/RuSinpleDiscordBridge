@@ -12,16 +12,18 @@ import java.util.Objects;
 
 public class CommandManager extends ListenerAdapter {
 
-    private final JustHello           justHello;
-    private final HelpCommand         helpCommand;
-    private final ClearCommand        clearCommand;
-    private final KickCommand         kickCommand;
-    private final BanCommand          banCommand;
-    private final UnBanCommand        unBanCommand;
-    private final TicketGuiCommand    ticketGuiCommand;
-    private final ClearTicket         clearTicket;
-    private final ReactionCommand     reactionCommand;
-    private final BadWordCommand     badWordCommand;
+    private final JustHello                    justHello;
+    private final HelpCommand                  helpCommand;
+    private final ClearCommand                 clearCommand;
+    private final KickCommand                  kickCommand;
+    private final BanCommand                   banCommand;
+    private final UnBanCommand                 unBanCommand;
+    private final TicketGuiCommand             ticketGuiCommand;
+    private final ClearTicket                  clearTicket;
+    private final ReactionCommand              reactionCommand;
+    private final BadWordCommand               badWordCommand;
+    private final SetSuggestionsChannelCommand suggestions;
+    private final SuggestionCommand            suggestionCommand;
 
 
 
@@ -36,6 +38,8 @@ public class CommandManager extends ListenerAdapter {
         this.clearTicket         = new ClearTicket();
         this.reactionCommand     = new ReactionCommand();
         this.badWordCommand      = new BadWordCommand();
+        this.suggestions         = new SetSuggestionsChannelCommand();
+        this.suggestionCommand   = new SuggestionCommand();
 
     }
 
@@ -50,16 +54,18 @@ public class CommandManager extends ListenerAdapter {
             Message message = e.getMessage();
 
             switch (args[0]) {
-                case "!help"          -> this.helpCommand.executeCommand(args, guild, member, textChannel, message);
-                case "Hello", "hello" -> this.justHello.executeCommand(args, guild, member, textChannel, message);
-                case "!clear"         -> this.clearCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!kick"          -> this.kickCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!ban"           -> this.banCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!unban"         -> this.unBanCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!ticketgui"     -> this.ticketGuiCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!close"         -> this.clearTicket.executeCommand(args, guild, member, textChannel, message);
-                case "!reaction"      -> this.reactionCommand.executeCommand(args, guild, member, textChannel, message);
-                case "!badword"       -> this.badWordCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!help"                  -> this.helpCommand.executeCommand(args, guild, member, textChannel, message);
+                case "Hello", "hello"         -> this.justHello.executeCommand(args, guild, member, textChannel, message);
+                case "!clear"                 -> this.clearCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!kick"                  -> this.kickCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!ban"                   -> this.banCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!unban"                 -> this.unBanCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!ticketgui"             -> this.ticketGuiCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!close"                 -> this.clearTicket.executeCommand(args, guild, member, textChannel, message);
+                case "!reaction"              -> this.reactionCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!badword"               -> this.badWordCommand.executeCommand(args, guild, member, textChannel, message);
+                case "!suggestion_channel"    -> this.suggestions.executeCommand(args, guild, member, textChannel, message);
+                case "!suggestion"            -> this.suggestionCommand.executeCommand(args, guild, member, textChannel, message);
 
             }
         }

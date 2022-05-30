@@ -14,17 +14,19 @@ public class ReactionCommand implements ICommand {
 
     @Override
     public void executeCommand(String[] args, Guild guild, Member member, TextChannel textChannel, Message message) {
+
+        System.out.println(textChannel.getId());
+
         message.delete().queue();
         if (RolesHelp.userHasRole(member, "admin")) {
-            System.out.println(args.length);
             if (args.length == 5) {
                 String channelId = message.getMentionedChannels().get(0).getId();
                 String messageId = args[2];
-                String emote     = args[3];
-                String role      = message.getMentionedRoles().get(0).getId();
+                String emote = args[3];
+                String role = message.getMentionedRoles().get(0).getId();
 
                 TextChannel reactionChannel = guild.getTextChannelById(channelId);
-                if(reactionChannel != null){
+                if (reactionChannel != null) {
                     reactionChannel.addReactionById(messageId, emote).queue();
                 }
                 databaseHandler.addReactionRole(guild.getId()

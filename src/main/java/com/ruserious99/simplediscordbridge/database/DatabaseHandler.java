@@ -121,6 +121,28 @@ public class DatabaseHandler extends Config {
         return false;
     }
 
+    public boolean isReactionRole(String guildId, String channelId, String messageId, String emote){
+        if (!guildId.equals("")) {
+            String query = "SELECT * FROM " + Const.USERS_TABLE_ROLES;
+            try {
+                PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+                    if (resultSet.getString("guild_id").equals(guildId)
+                            && resultSet.getString("channel_id_roles").equals(channelId)
+                            && resultSet.getString("message_id").equals(messageId)
+                            && resultSet.getString("emote").equals(emote)) {
+                        return true;
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     public String findReactionRole(String guildId, String channelId, String messageId, String emote) {
 
         if (!guildId.equals("")) {
@@ -188,15 +210,46 @@ public class DatabaseHandler extends Config {
 
         String query = "SELECT * FROM " + Const.BAD_WORDS;
 
-        PreparedStatement preparedStatement = null;
-
         try {
-            preparedStatement = getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = getConnection().prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 words.add(resultSet.getString(Const.WORDS));
             }
             return words;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void addSuggestionChannel(String channelId) {
+        String insert = "INSERT INTO " + Const.SUGGESTION_TABLE + "("
+                + Const.SUGGESTIONS_CHANNEL_ID + ")"
+                + "VALUES(?)";
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(insert);
+            preparedStatement.setString(1, channelId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getSuggestionsChannelId() {
+
+        String result = null;
+
+        String query = "SELECT * FROM " + Const.SUGGESTION_TABLE;
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                result = resultSet.getString(Const.SUGGESTIONS_CHANNEL_ID);
+                System.out.println("***** " + result + " *****");
+            }
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
